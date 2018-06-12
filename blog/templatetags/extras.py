@@ -1,5 +1,4 @@
 from django import template
-import html
 from html.parser import HTMLParser
 
 register = template.Library()
