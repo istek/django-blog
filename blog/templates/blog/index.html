@@ -1,5 +1,5 @@
-{% extends 'blog/base.html' %} {% load extras %}{% block title %} 我的首页 {% endblock %} {% block content%} {% for post in allposts
-%}
+{% extends 'blog/base.html' %} {% load extras %}{% block title %} 我的首页 {% endblock %} {% block content%}
+    {% for post in allposts %}
 <h2 class="blog-post-title text-center">{{ post.title }}</h2>
 <p class="blog-post-meta text-center">{{ post.user }}&nbsp;发表于&nbsp;{{ post.post_time }}</p>
 
