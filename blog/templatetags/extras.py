@@ -7,9 +7,9 @@ register = template.Library()
 def more(value):
 
     if '<!--more-->' in value:
-        nStr = '<!--more-->'
-        nPos = value.index(nStr)
-        nValue = value[nPos:]
-        return nValue
+        nstr = '<!--more-->'
+        npos = value.index(nstr)
+        nvalue = value[npos:]
+        return nvalue
     else:
         return value
