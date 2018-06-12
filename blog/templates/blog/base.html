@@ -14,7 +14,17 @@
         crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/blog.css' %}" />
     <link href="{% static 'css/github.css' %}" rel="stylesheet">
-
+    <script language="javascript" type="text/javascript">
+        window.onload = function () {
+            //判断图片大小，超过一定宽度，要通过js定义图片大小
+            $.each($(".blog-post img"), function (i, v) {
+                if (v.width > 500) {
+                    v.width = 500; //重定义编辑器自带的宽度
+                    v.removeAttribute('height'); //移除编辑器自带的图片高度
+                }
+            });
+        }
+    </script>
 </head>
 
 <body>
