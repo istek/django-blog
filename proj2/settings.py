@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
+    'markdownx',
 ]
 
 MIDDLEWARE = [
@@ -53,8 +54,7 @@ ROOT_URLCONF = 'proj2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -63,7 +63,11 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries':{
+                'extras': 'blog.templatetags.extras',
+            },
         },
+
     },
 ]
 
@@ -74,8 +78,10 @@ WSGI_APPLICATION = 'proj2.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'test',
+        'USER': 'root',
+        'PASSWORD': '1234',
     }
 }
 
@@ -115,3 +121,33 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# Markdownify
+# Default function that compiles markdown using defined extensions. Using custom function can allow you to pre-process or post-process markdown text. See below for more info.
+MARKDOWNX_MARKDOWNIFY_FUNCTION = 'markdownx.utils.markdownify'
+# Markdown extensions
+MARKDOWNX_MARKDOWN_EXTENSIONS = [
+    'markdown.extensions.extra',
+    'markdown.extensions.nl2br',
+    'markdown.extensions.smarty',
+    'markdown.extensions.codehilite',
+]  # List of used markdown extensions. See below for more info.
+# Configuration object for used markdown extensions
+MARKDOWNX_MARKDOWN_EXTENSION_CONFIGS = {}
+# Markdown urls
+# URL that returns compiled markdown text.
+MARKDOWNX_URLS_PATH = '/markdownx/markdownify/'
+# URL that accepts file uploads, returns markdown notation of the image.
+MARKDOWNX_UPLOAD_URLS_PATH = '/markdownx/upload/'
+# Media path
+# Path, where images will be stored in MEDIA_ROOT folder
+MARKDOWNX_MEDIA_PATH = 'markdownx/'
+# Image
+MARKDOWNX_UPLOAD_MAX_SIZE = 52428800  # 50MB - maximum file size
+# Acceptable file content types
+MARKDOWNX_UPLOAD_CONTENT_TYPES = ['image/jpeg', 'image/png', 'image/svg+xml']
+# Different options describing final image processing: size, compression etc. See below for more info. Dimensions are not applied to SVG files.
+MARKDOWNX_IMAGE_MAX_SIZE = {'size': (500, 500), 'quality': 90, }
+# Editor
+# Update editor's height to inner content height while typing
+MARKDOWNX_EDITOR_RESIZABLE = True
